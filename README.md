@@ -61,7 +61,7 @@ O projeto conta com uma API própria desenvolvida em Java, responsável por toda
 ---
 ## Arquitetura do sistema
 
-* Front-end: TypeScript (React + Vite)
+* Front-end: TypeScript 
 * Back-end: Java (em desenvolvimento)
 * Comunicação: API REST
 * Segurança: Validação de iToken por e-mail
