@@ -71,6 +71,18 @@ Fluxo da aplicação
 
 Usuário faz o registro no site → Login → Inicia compra → Vai para o carrinho → Coloca as informações de enredereço e cartão → Clica em Finaizar compra → Geração de iToken → Envio por e-mail → Validação → Compra aprovada ou cancelada
 
+## Tela de Registro
+![Tela de Login](./assets/Registro.png)
+
+## Tela de Login
+![Tela de Login](./assets/login.png)
+
+## Validação de Token
+![Tela de Token](./assets/token.png)
+
+## Lista de Compras
+![Tela de Compras](./assets/compras.png)
+
 ⸻
 
 Funcionalidades
