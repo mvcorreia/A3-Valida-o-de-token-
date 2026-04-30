@@ -96,8 +96,9 @@ Tecnologias utilizadas
 
 ⸻
 
-Estrutura do projeto
+## 🗂️ Estrutura do projeto
 
+```bash
 /src
   /assets        # Imagens, ícones e arquivos estáticos
   /components    # Componentes reutilizáveis da interface
@@ -106,6 +107,7 @@ Estrutura do projeto
   /pages         # Páginas/telas da aplicação
   /store         # Gerenciamento de estado global
   /test          # Testes da aplicação
+
   App.tsx        # Componente principal
   main.tsx       # Ponto de entrada da aplicação
 
