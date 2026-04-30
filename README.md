@@ -20,6 +20,7 @@ De acordo com estudos recentes da Serasa Experian:
 * Cerca de 54,2% das vítimas tiveram prejuízo financeiro
 * 20% perderam entre R$1.000 e R$5.000
 * O uso indevido de cartões de crédito representa quase metade dos golpes (~47,9%)
+* O público alvo dos golpistas são pessas nas idades entre 40-65 anos.
 
 Esses dados demonstram a necessidade de mecanismos adicionais de segurança em transações online, como a validação por iToken proposta neste projeto.
 
