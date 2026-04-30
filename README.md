@@ -110,6 +110,8 @@ Tecnologias utilizadas
 
   App.tsx        # Componente principal
   main.tsx       # Ponto de entrada da aplicação
+```
+⸻
 
 Regras de segurança implementadas
 
