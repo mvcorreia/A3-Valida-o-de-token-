@@ -39,7 +39,7 @@ Desenvolver uma aplicação que:
 * Utilize validação de token (iToken) em compras
 * Envie códigos de verificação por e-mail
 * Proteja transações online
-* Permita identificar e contestar compras não reconhecidas
+
 
 ---
 ## API própria (Back-end) (em Desenvolvimento)
