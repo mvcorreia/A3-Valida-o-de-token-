@@ -1,5 +1,7 @@
 ## Sistema de Validação de iToken para Compras Online
 
+Golpe escolhido entre os temas foi: Compra não reconhecida no cartão de credito
+
 Sobre o projeto
 
 Este projeto simula um sistema de segurança para validação de compras online, utilizando um mecanismo de iToken (código temporário) enviado por e-mail.
