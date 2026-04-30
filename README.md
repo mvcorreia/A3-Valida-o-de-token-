@@ -42,7 +42,23 @@ Desenvolver uma aplicação que:
 * Permita identificar e contestar compras não reconhecidas
 
 ---
+## API própria (Back-end) (em Desenvolvimento)
 
+O projeto conta com uma API própria desenvolvida em Java, responsável por toda a lógica da aplicação.
+
+### Responsabilidades da API:
+- Gerenciamento de usuários
+- Controle de compras
+- Geração e validação de iToken
+- Integração com envio de e-mail
+
+### Exemplos de endpoints:
+- POST /login
+- GET /compras
+- POST /compras
+- POST /token/gerar
+- POST /token/validar
+---
 ## Arquitetura do sistema
 
 * Front-end: TypeScript (React + Vite)
