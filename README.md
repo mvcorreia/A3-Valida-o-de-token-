@@ -25,6 +25,7 @@ Esses dados demonstram a necessidade de mecanismos adicionais de segurança em t
 
 - https://noticias.uol.com.br/ultimas-noticias/agencia-brasil/2025/03/25/metade-dos-brasileiros-sofreu-fraude-em-2024-diz-serasa-experian.htm
 - https://www.itatiaia.com.br/brasil/mais-da-metade-dos-brasileiros-foi-vitima-de-fraude-em-2024-20-deles-perderam-entre-1-e-5-mil-reais/
+
 ⸻
 
 Objetivo
