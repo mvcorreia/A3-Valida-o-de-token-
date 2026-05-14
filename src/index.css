@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 0 0% 8%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 8%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 8%;
+    --primary: 220 90% 56%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 0 0% 8%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 8% 46%;
+    --accent: 35 100% 55%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 220 90% 56%;
+    --radius: 0.75rem;
+    --success: 142 72% 42%;
+    --success-foreground: 0 0% 100%;
+
+    /* BuyNow brand */
+    --brand-blue: 220 90% 56%;
+    --brand-blue-deep: 224 76% 38%;
+    --gradient-brand: linear-gradient(135deg, hsl(220 90% 56%), hsl(224 76% 38%));
+    --gradient-soft: linear-gradient(180deg, hsl(220 50% 98%), hsl(220 30% 95%));
+
+    /* SafeCard (security) */
+    --safecard-bg: 220 18% 12%;
+    --safecard-surface: 220 16% 16%;
+    --safecard-accent: 142 72% 42%;
+    --gradient-safecard: linear-gradient(160deg, hsl(220 18% 12%), hsl(220 24% 6%));
+
+    --shadow-card: 0 4px 20px -8px hsl(220 40% 20% / 0.12);
+    --shadow-brand: 0 12px 32px -12px hsl(220 90% 56% / 0.45);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 220 20% 6%;
+    --foreground: 0 0% 95%;
+    --card: 220 20% 10%;
+    --card-foreground: 0 0% 95%;
+    --popover: 220 20% 10%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 220 90% 56%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 14% 16%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 220 14% 16%;
+    --muted-foreground: 220 8% 56%;
+    --accent: 35 100% 55%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 95%;
+    --border: 220 14% 18%;
+    --input: 220 14% 18%;
+    --ring: 220 90% 56%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply text-foreground font-body antialiased;
+    min-height: 100vh;
+    background-color: #C8D9E6;
+    background-image:
+      radial-gradient(ellipse 60% 50% at 10% 10%, rgba(175, 196, 214, 0.7), transparent 70%),
+      radial-gradient(ellipse 50% 40% at 90% 85%, rgba(255, 255, 255, 0.6), transparent 70%),
+      linear-gradient(135deg, #AFC4D6 0%, #C8D9E6 45%, #E5EEF5 75%, #FFFFFF 100%);
+    background-attachment: fixed;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-bold tracking-tight;
+  }
+}
+
+/* App-wide background utility — transparent so body gradient shows through */
+.app-bg {
+  background-color: transparent;
+}
+
+/* 3D Credit Card flip */
+.card-3d { perspective: 1200px; }
+.card-3d-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.card-3d-inner.is-flipped { transform: rotateY(180deg); }
+.card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.card-face-back { transform: rotateY(180deg); }
+
+/* SafeCard glow effects */
+.safecard-glow {
+  box-shadow:
+    0 0 0 1px hsl(var(--safecard-accent) / 0.2),
+    0 0 40px -8px hsl(var(--safecard-accent) / 0.45),
+    0 0 80px -16px hsl(var(--safecard-accent) / 0.25);
+  animation: safecard-pulse 3s ease-in-out infinite;
+}
+.safecard-glow-card {
+  box-shadow:
+    0 0 0 1px hsl(var(--safecard-accent) / 0.08),
+    0 20px 60px -20px hsl(var(--safecard-accent) / 0.25),
+    0 0 100px -30px hsl(var(--safecard-accent) / 0.15);
+}
+@keyframes safecard-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px hsl(var(--safecard-accent) / 0.2),
+      0 0 40px -8px hsl(var(--safecard-accent) / 0.45),
+      0 0 80px -16px hsl(var(--safecard-accent) / 0.25);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px hsl(var(--safecard-accent) / 0.35),
+      0 0 60px -8px hsl(var(--safecard-accent) / 0.65),
+      0 0 120px -16px hsl(var(--safecard-accent) / 0.4);
+  }
+}
+
