@@ -148,7 +148,7 @@ const PaymentPage = () => {
         return;
       }
 
-      const response = await fetch("http://localhost:8080/payment/checkout", {
+      const response = await fetch("https://a3-valida-o-de-token.onrender.com/payment/checkout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
