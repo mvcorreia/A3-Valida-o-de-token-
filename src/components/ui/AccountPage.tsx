@@ -34,7 +34,7 @@ const AccountPage = () => {
 
   const loadUser = async (userEmail: string) => {
     try {
-      const response = await fetch(`http://localhost:8080/users/${userEmail}`);
+      const response = await fetch(`https://a3-valida-o-de-token.onrender.com/users/${userEmail}`);
 
       if (!response.ok) return;
 
@@ -56,7 +56,7 @@ const AccountPage = () => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch("http://localhost:8080/users/update", {
+      const response = await fetch("https://a3-valida-o-de-token.onrender.com/users/update", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
