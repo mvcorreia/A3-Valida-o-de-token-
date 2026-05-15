@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/payment")
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "https://a3-validador-frontend.onrender.com")
 public class PaymentController {
 
     private final PaymentService paymentService;
