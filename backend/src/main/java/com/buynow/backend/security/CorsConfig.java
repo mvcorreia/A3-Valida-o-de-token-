@@ -1,5 +1,4 @@
-public class CorsConfig {
-    package com.buynow.backend.security; // Se criar na pasta security, use este package
+package com.buynow.backend.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -16,5 +15,4 @@ public class CorsConfig implements WebMvcConfigurer {
                 .allowedHeaders("*")
                 .allowCredentials(true);
     }
-}
 }
