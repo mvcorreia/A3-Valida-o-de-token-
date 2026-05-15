@@ -19,8 +19,8 @@ const LoginPage = () => {
 
     try {
       const endpoint = isRegister
-        ? "http://localhost:8080/auth/register"
-        : "http://localhost:8080/auth/login";
+        ? "https://a3-valida-o-de-token.onrender.com/auth/register"
+        : "https://a3-valida-o-de-token.onrender.com/auth/login";
 
       const requestBody = isRegister
         ? {
@@ -137,7 +137,7 @@ const LoginPage = () => {
                 boxShadow: "var(--shadow-brand)",
               }}
             >
-              {isRegister ? "Registrar" : "Entrar"}
+              {isRegister ? "Registrar Agora" : "Entrar"}
             </Button>
           </div>
         </form>
