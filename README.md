@@ -216,3 +216,6 @@ Desenvolvido por Marcus Vinicius Correia
 ## Observação
 
 Este projeto foi desenvolvido com base em dados reais sobre fraudes no Brasil, com foco em segurança de transações online e prevenção de golpes financeiros.
+
+
+https://trello.com/invite/b/6a03cfcf179298be994e431a/ATTI6feb1e8e7c9f230b499d8b960fb53bdaB21344F8/a3
