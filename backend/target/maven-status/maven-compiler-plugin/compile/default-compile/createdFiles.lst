@@ -1,4 +1,5 @@
 com\buynow\backend\security\JwtService.class
+com\buynow\backend\security\CorsConfig.class
 com\buynow\backend\security\EmailService.class
 com\buynow\backend\BackendApplication.class
 com\buynow\backend\dto\RegisterRequestDTO.class
@@ -8,6 +9,7 @@ com\buynow\backend\entity\User.class
 com\buynow\backend\controller\AuthController.class
 com\buynow\backend\service\AuthService.class
 com\buynow\backend\service\PaymentService.class
+com\buynow\backend\security\SecurityConfig.class
 com\buynow\backend\dto\LoginResponseDTO.class
 com\buynow\backend\dto\TokenValidationDTO.class
 com\buynow\backend\repository\UserRepository.class
