@@ -9,7 +9,9 @@ C:\Users\Marcus\Desktop\buynow\backend\src\main\java\com\buynow\backend\dto\Toke
 C:\Users\Marcus\Desktop\buynow\backend\src\main\java\com\buynow\backend\entity\User.java
 C:\Users\Marcus\Desktop\buynow\backend\src\main\java\com\buynow\backend\payment\payment.java
 C:\Users\Marcus\Desktop\buynow\backend\src\main\java\com\buynow\backend\repository\UserRepository.java
+C:\Users\Marcus\Desktop\buynow\backend\src\main\java\com\buynow\backend\security\CorsConfig.java
 C:\Users\Marcus\Desktop\buynow\backend\src\main\java\com\buynow\backend\security\EmailService.java
 C:\Users\Marcus\Desktop\buynow\backend\src\main\java\com\buynow\backend\security\JwtService.java
+C:\Users\Marcus\Desktop\buynow\backend\src\main\java\com\buynow\backend\security\SecurityConfig.java
 C:\Users\Marcus\Desktop\buynow\backend\src\main\java\com\buynow\backend\service\AuthService.java
 C:\Users\Marcus\Desktop\buynow\backend\src\main\java\com\buynow\backend\service\PaymentService.java

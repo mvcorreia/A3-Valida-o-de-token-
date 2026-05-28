@@ -18,26 +18,15 @@ public class PaymentService {
     }
 
     public String processPayment(Double amount, String userEmail) {
+    Random random = new Random();
+    int token = 100000 + random.nextInt(900000);
+    generatedToken = String.valueOf(token);
 
-        Random random = new Random();
+    System.out.println("TOKEN GERADO NO CONSOLE: " + generatedToken);
 
-        int token = 100000 + random.nextInt(900000);
 
-        generatedToken = String.valueOf(token);
-
-        System.out.println("TOKEN GERADO: " + generatedToken);
-
-        try {
-
-            emailService.sendToken(userEmail, generatedToken);
-
-        } catch (Exception e) {
-
-            throw new RuntimeException("Erro ao enviar email");
-        }
-
-        return "Token enviado para o email";
-    }
+    return "Pagamento processado! Token: " + generatedToken;
+}
 
     public String validateToken(String token) {
 
