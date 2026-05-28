@@ -12,5 +12,6 @@ com\buynow\backend\service\PaymentService.class
 com\buynow\backend\security\SecurityConfig.class
 com\buynow\backend\dto\LoginResponseDTO.class
 com\buynow\backend\dto\TokenValidationDTO.class
+com\buynow\backend\security\PasswordConfig.class
 com\buynow\backend\repository\UserRepository.class
 com\buynow\backend\dto\PaymentRequestDTO.class
