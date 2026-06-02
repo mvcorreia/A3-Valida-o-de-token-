@@ -16,19 +16,18 @@ Além disso, a aplicação permite visualizar compras e identificar possíveis t
 
 De acordo com estudos recentes da Serasa Experian:
 
-* Mais de 50% dos brasileiros foram vítimas de fraude em 2024
-* Cerca de 54,2% das vítimas tiveram prejuízo financeiro
-* 20% perderam entre R$1.000 e R$5.000
-* O uso indevido de cartões de crédito representa quase metade dos golpes (~47,9%)
-* O público alvo dos golpistas são pessoas nas idades entre 40-65 anos.
+* **Mais de 50%** dos brasileiros foram vítimas de fraude em 2024.
+* Cerca de **54,2%** das vítimas tiveram prejuízo financeiro.
+* **20%** perderam entre R$ 1.000 e R$ 5.000.
+* O uso indevido de cartões de crédito representa quase metade dos golpes (**~47,9%**).
+* O público-alvo principal dos golpistas são pessoas entre 40 e 65 anos.
 
 Esses dados demonstram a necessidade de mecanismos adicionais de segurança em transações online, como a validação por iToken proposta neste projeto.
 
 ## Fontes
 
-- https://noticias.uol.com.br/ultimas-noticias/agencia-brasil/2025/03/25/metade-dos-brasileiros-sofreu-fraude-em-2024-diz-serasa-experian.htm
-- https://www.itatiaia.com.br/brasil/mais-da-metade-dos-brasileiros-foi-vitima-de-fraude-em-2024-20-deles-perderam-entre-1-e-5-mil-reais/
-
+* [UOL Notícias - Metade dos brasileiros sofreu fraude em 2024](https://noticias.uol.com.br/ultimas-noticias/agencia-brasil/2025/03/25/metade-dos-brasileiros-sofreu-fraude-em-2024-diz-serasa-experian.htm)
+* [Rádio Itatiaia - Mais da metade dos brasileiros foi vítima de fraude](https://www.itatiaia.com.br/brasil/mais-da-metade-dos-brasileiros-foi-vitima-de-fraude-em-2024-20-deles-perderam-entre-1-e-5-mil-reais/)
 ---
 
 ## Objetivo
@@ -40,24 +39,74 @@ Desenvolver uma aplicação que:
 * Envie códigos de verificação por e-mail
 * Proteja transações online
 
+---
+## Tecnologias e Arquitetura:
+* **Front-end:** TypeScript & React
+* **Back-end:** Java & Spring Boot (Data JPA, Spring Mail)
+* **Banco de Dados:** PostgreSQL
+* **Comunicação:** API REST (JSON)
+* **APIs Externas:** ViaCEP (Consulta de endereço) • Gmail SMTP (Envio do iToken)
 
 ---
 ## API própria (Back-end) (em Desenvolvimento)
 
-O projeto conta com uma API própria desenvolvida em Java, responsável por toda a lógica da aplicação.
+O projeto conta com uma API própria desenvolvida em Java, responsável por centralizar toda a lógica de persistência e segurança.
 
-### Responsabilidades da API:
-- Gerenciamento de usuários
-- Controle de compras
-- Geração e validação de iToken
-- Integração com envio de e-mail
+### Responsabilidades:
+* Gerenciamento e cadastro de usuários
+* Controle e histórico de compras
+* Geração, armazenamento temporário e validação do iToken
+* Integração nativa com serviço de e-mail
 
-### Exemplos de endpoints:
-- POST /login
-- GET /compras
-- POST /compras
-- POST /token/gerar
-- POST /token/validar
+### Principais Endpoints:
+* `POST /auth/register` - Registro de novos usuários
+* `POST /auth/login` - Autenticação no sistema
+* `GET /compras` - Listagem de transações do usuário
+* `POST /payment/checkout` - Inicia a transação e dispara o iToken por e-mail
+* `POST /payment/validate-token` - Valida o código digitado e finaliza a compra
+
+---
+## Estrutura do Projeto
+
+### Front-end
+```bash
+/src
+  /assets         # Imagens, ícones e arquivos estáticos
+  /components    # Componentes reutilizáveis da interface
+  /hooks         # Hooks personalizados (lógica reutilizável)
+  /lib           # Funções auxiliares e utilitários
+  /pages         # Páginas e telas da aplicação
+  /store         # Gerenciamento de estado global
+  /test          # Testes da aplicação
+  App.tsx        # Componente principal
+  main.tsx       # Ponto de entrada da aplicação
+```
+---
+## Back-end (Estrutura de Camadas)
+
+controller: Gerencia as rotas e requisições HTTP da API.
+
+AuthController (Login/Registro) • PaymentController (Checkout e validação de token)
+
+Service: Concentra toda a lógica de negócio e regras da aplicação.
+
+AuthService (Fluxo de login) • PaymentService (Lógica do iToken) • EmailService (Disparos SMTP)
+
+repository: Camada de persistência (comunicação direta com o banco de dados).
+
+UserRepository (Queries estruturadas via Spring Data JPA)
+
+model: Entidades que mapeiam as tabelas relacionais.
+
+User (Mapeia a tabela users do PostgreSQL)
+
+dto: Objetos para tráfego seguro de dados entre as pontas do sistema.
+
+LoginDTO • RegisterDTO • PaymentRequestDTO • TokenValidationDTO
+
+application.properties: Arquivo de configuração de credenciais da API.
+
+
 ---
 ## Arquitetura do sistema
 
@@ -111,11 +160,20 @@ Usuário faz o registro no site → Login → Inicia compra → Vai para o carri
 ## Tela de Token
 <img width="1920" height="935" alt="Token" src="https://github.com/user-attachments/assets/1eae9e2b-4cf2-44ae-b998-c78ce57e0288" />
 
+## Tela do Token no Email
+<img width="1920" height="935" alt="Token" src="https://github.com/mvcorreia/A3-Valida-o-de-token-/blob/e3224e43a69609acc201b85f7e17ceaece277d6c/src/assets/Token%20no%20email.jpeg" />
+
+## Tela de Token no Banco de Dados
+<img width="1920" height="935" alt="Token" src="https://github.com/mvcorreia/A3-Valida-o-de-token-/blob/1b175bd890db5ca24173ffad7ae2ca30880d6659/src/assets/Token%20e%20login%20no%20console.png" />
+
 ## Tela de Compra Realizada
 <img width="1920" height="952" alt="Compra realizada" src="https://github.com/user-attachments/assets/1b00421c-60ff-4620-8e54-4321766936c7" />
 
 ## Tela de Compra Bloqueada (Após erro de 3 tentativas do Token)
 <img width="1920" height="938" alt="Compra bloqueada" src="https://github.com/user-attachments/assets/6ca828e0-e0fe-4c13-b13c-b1a8eba9b3b4" />
+
+## Tela do Banco de Dados
+<img width="1920" height="938" alt="Compra bloqueada" src="https://github.com/mvcorreia/A3-Valida-o-de-token-/blob/b3bdb9436cc3777fcd225b96218b67e843d9a239/src/assets/BD.png" />
 
 ---
 
@@ -138,7 +196,7 @@ Usuário faz o registro no site → Login → Inicia compra → Vai para o carri
 * Back-end: Java (em desenvolvimento)
 * APIs externas:
     * ViaCEP
-    * Gmail
+    * Gmail SMTP
 
 ---
 
@@ -179,12 +237,11 @@ Usuário faz o registro no site → Login → Inicia compra → Vai para o carri
 
 ## Possíveis melhorias futuras
 
-* Implementação completa do back-end em Java
 * Criptografia segura dos tokens
 * Expiração automática e controle de tentativas
-* Autenticação via SMS
 * Sistema de detecção de fraudes
-* Dashboard administrativo
+* Subir projeto no render
+* Reenviar o Token
 
 ---
 ## Como executar o projeto
@@ -219,3 +276,9 @@ Este projeto foi desenvolvido com base em dados reais sobre fraudes no Brasil, c
 
 
 https://trello.com/invite/b/6a03cfcf179298be994e431a/ATTI6feb1e8e7c9f230b499d8b960fb53bdaB21344F8/a3
+
+https://a3-validador-frontend.onrender.com/
+
+Conta teste:
+mviniciusneiva30@gmail.com
+123456
