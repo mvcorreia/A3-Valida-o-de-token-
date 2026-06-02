@@ -68,13 +68,18 @@ const emptyAddress: Address = {
 
 export interface AppliedCoupon {
   code: string;
-  discount: number; // 0-1
+  discount: number; 
   label: string;
+}
+
+export interface UserState {
+  email: string;
 }
 
 interface StoreState {
   isLoggedIn: boolean;
   userName: string;
+  user: UserState; // 🟢 Adicionado o estado do user aqui
   currentPage: "login" | "register" | "products" | "product-detail" | "payment" | "token-validation" | "cart" | "orders" | "favorites";
   selectedProduct: Product | null;
   cart: CartItem[];
@@ -101,6 +106,9 @@ interface StoreState {
 export const useStore = create<StoreState>((set) => ({
   isLoggedIn: false,
   userName: "",
+  user: {
+    email: "cliente@exemplo.com", 
+  },
   currentPage: "login",
   selectedProduct: null,
   cart: [],
@@ -109,8 +117,9 @@ export const useStore = create<StoreState>((set) => ({
   address: emptyAddress,
   orders: [],
   coupon: null,
-  login: (name) => set({ isLoggedIn: true, userName: name, currentPage: "products" }),
-  logout: () => set({ isLoggedIn: false, userName: "", currentPage: "login", selectedProduct: null, cart: [], favorites: [], buyingFromCart: false, address: emptyAddress, orders: [], coupon: null }),
+  
+  login: (name) => set({ isLoggedIn: true, userName: name, user: { email: `${name.toLowerCase().replace(/\s+/g, "")}@exemplo.com` }, currentPage: "products" }),
+  logout: () => set({ isLoggedIn: false, userName: "", user: { email: "cliente@exemplo.com" }, currentPage: "login", selectedProduct: null, cart: [], favorites: [], buyingFromCart: false, address: emptyAddress, orders: [], coupon: null }),
   setPage: (page) => set({ currentPage: page }),
   selectProduct: (product) => set({ selectedProduct: product, currentPage: "product-detail" }),
   addToCart: (product) =>
@@ -145,7 +154,7 @@ export const useStore = create<StoreState>((set) => ({
 export const categories = ["Eletrônicos", "Roupas", "Calçados", "Acessórios", "Eletrodomésticos"] as const;
 
 export const products: Product[] = [
-  // Eletrônicos
+  
   { id: 1, name: "Fone Bluetooth Pro", price: 299.90, image: headphonesImg, description: "Fone de ouvido sem fio com cancelamento de ruído ativo e bateria de 30h.", category: "Eletrônicos" },
   { id: 2, name: "Smartwatch Ultra", price: 899.90, image: smartwatchImg, description: "Relógio inteligente com GPS, monitor cardíaco e tela AMOLED.", category: "Eletrônicos" },
   { id: 7, name: "Teclado Mecânico", price: 549.90, image: keyboardImg, description: "Teclado mecânico RGB com switches blue e layout ABNT2.", category: "Eletrônicos" },
@@ -157,7 +166,7 @@ export const products: Product[] = [
   { id: 14, name: "Projetor Full HD", price: 1499.90, image: projectorImg, description: "Projetor portátil 1080p com 6000 lumens e suporte para Bluetooth.", category: "Eletrônicos" },
   { id: 15, name: "Câmera Polaroide", price: 599.90, image: polaroidImg, description: "Câmera instantânea retrô que imprime fotos em segundos.", category: "Eletrônicos" },
 
-  // Roupas
+
   { id: 3, name: "Camiseta Premium", price: 89.90, image: tshirtImg, description: "Camiseta 100% algodão pima com corte slim fit.", category: "Roupas" },
   { id: 8, name: "Jaqueta Couro", price: 699.90, image: jacketImg, description: "Jaqueta em couro sintético premium com forro térmico.", category: "Roupas" },
   { id: 16, name: "Calça Jeans Slim", price: 199.90, image: jeansImg, description: "Calça jeans slim fit com lavagem azul clássica e elastano.", category: "Roupas" },
@@ -165,13 +174,13 @@ export const products: Product[] = [
   { id: 18, name: "Vestido Floral", price: 249.90, image: dressImg, description: "Vestido midi vermelho com estampa floral em tecido leve e fluido.", category: "Roupas" },
   { id: 19, name: "Moletom Oversized", price: 219.90, image: hoodieImg, description: "Moletom unissex cinza com capuz e bolso canguru, felpa interna macia.", category: "Roupas" },
 
-  // Calçados
+
   { id: 4, name: "Tênis Runner X", price: 459.90, image: sneakersImg, description: "Tênis de corrida com amortecimento em gel e solado antiderrapante.", category: "Calçados" },
   { id: 20, name: "Chinelo Conforto", price: 79.90, image: flipflopsImg, description: "Chinelo de borracha ergonômico, leve e antiderrapante.", category: "Calçados" },
   { id: 21, name: "Scarpin Salto Alto", price: 329.90, image: heelsImg, description: "Scarpin preto em verniz com salto fino de 10cm.", category: "Calçados" },
   { id: 22, name: "Bota Cano Curto", price: 499.90, image: bootsImg, description: "Bota em couro legítimo marrom com cano curto e zíper lateral.", category: "Calçados" },
 
-  // Acessórios
+
   { id: 5, name: "Mochila Urban", price: 199.90, image: backpackImg, description: "Mochila impermeável com compartimento para notebook 15\".", category: "Acessórios" },
   { id: 6, name: "Óculos Solar", price: 349.90, image: sunglassesImg, description: "Óculos com proteção UV400 e armação em titânio.", category: "Acessórios" },
   { id: 23, name: "Relógio Clássico", price: 459.90, image: watchImg, description: "Relógio analógico com pulseira em aço inoxidável e mostrador branco.", category: "Acessórios" },
@@ -180,7 +189,7 @@ export const products: Product[] = [
   { id: 26, name: "Kit 5 Anéis", price: 119.90, image: ringsImg, description: "Conjunto de 5 anéis empilháveis em prata e ouro, ajustáveis.", category: "Acessórios" },
   { id: 27, name: "Kit Pulseiras Boho", price: 99.90, image: braceletsImg, description: "Kit com 6 pulseiras de miçangas em tons dourados e cristais.", category: "Acessórios" },
 
-  // Eletrodomésticos
+
   { id: 28, name: "Ventilador Torre Smart", price: 549.90, image: fanImg, description: "Ventilador torre com display digital, controle remoto e 3 velocidades.", category: "Eletrodomésticos" },
   { id: 29, name: "Air Fryer 5L Digital", price: 599.90, image: airfryerImg, description: "Fritadeira sem óleo de 5 litros com painel touch e 8 funções.", category: "Eletrodomésticos" },
   { id: 30, name: "Robô Aspirador WiFi", price: 1899.90, image: robotVacuumImg, description: "Robô aspirador com mapeamento a laser, controle por app e auto-recarga.", category: "Eletrodomésticos" },
