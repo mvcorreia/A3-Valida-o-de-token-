@@ -88,7 +88,7 @@ interface StoreState {
   address: Address;
   orders: Order[];
   coupon: AppliedCoupon | null;
-  login: (name: string) => void;
+  login: (email: string) => void;
   logout: () => void;
   setPage: (page: StoreState["currentPage"]) => void;
   selectProduct: (product: Product) => void;
@@ -118,7 +118,15 @@ export const useStore = create<StoreState>((set) => ({
   orders: [],
   coupon: null,
   
-  login: (name) => set({ isLoggedIn: true, userName: name, user: { email: `${name.toLowerCase().replace(/\s+/g, "")}@exemplo.com` }, currentPage: "products" }),
+  login: (email) =>
+  set({
+    isLoggedIn: true,
+    userName: email,
+    user: {
+      email: email,
+    },
+    currentPage: "products",
+  }),
   logout: () => set({ isLoggedIn: false, userName: "", user: { email: "cliente@exemplo.com" }, currentPage: "login", selectedProduct: null, cart: [], favorites: [], buyingFromCart: false, address: emptyAddress, orders: [], coupon: null }),
   setPage: (page) => set({ currentPage: page }),
   selectProduct: (product) => set({ selectedProduct: product, currentPage: "product-detail" }),
