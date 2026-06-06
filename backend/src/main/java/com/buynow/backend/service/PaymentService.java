@@ -1,7 +1,6 @@
 package com.buynow.backend.service;
 
 import com.buynow.backend.security.EmailService;
-
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
@@ -18,20 +17,32 @@ public class PaymentService {
     }
 
     public String processPayment(Double amount, String userEmail) {
-    Random random = new Random();
-    int token = 100000 + random.nextInt(900000);
-    generatedToken = String.valueOf(token);
 
-    System.out.println("TOKEN GERADO NO CONSOLE: " + generatedToken);
+        Random random = new Random();
+        int token = 100000 + random.nextInt(900000);
 
+        generatedToken = String.valueOf(token);
 
-    return "Pagamento processado! Token: " + generatedToken;
-}
+        System.out.println("TOKEN GERADO NO CONSOLE: " + generatedToken);
+
+        try {
+
+            emailService.sendToken(userEmail, generatedToken);
+
+            System.out.println("EMAIL ENVIADO PARA: " + userEmail);
+
+        } catch (Exception e) {
+
+            System.out.println("ERRO AO ENVIAR EMAIL:");
+            e.printStackTrace();
+        }
+
+        return "Pagamento processado! Token enviado para o email.";
+    }
 
     public String validateToken(String token) {
 
         if (generatedToken == null) {
-
             return "Nenhum token gerado";
         }
 
