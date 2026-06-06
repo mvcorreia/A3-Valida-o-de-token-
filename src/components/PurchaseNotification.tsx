@@ -40,7 +40,7 @@ const PurchaseNotification = () => {
       hideTimer = setTimeout(() => setVisible(false), 5000);
     };
 
-    // Primeira após 4s, depois a cada 15-20s
+    
     const firstTimer = setTimeout(show, 4000);
     const interval = setInterval(() => show(), 17000);
 

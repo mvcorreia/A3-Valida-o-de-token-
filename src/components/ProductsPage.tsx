@@ -118,7 +118,7 @@ const ProductsPage = () => {
     return sorted;
   }, [search, activeCategory, priceRange, sortBy]);
 
-  // Produtos em destaque (curados)
+  
   const featuredIds = [2, 4, 7, 8, 9, 29];
   const featured = products.filter((p) => featuredIds.includes(p.id));
   const priceFilterActive =

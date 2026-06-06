@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "https://a3-validador-frontend.onrender.com")
 public class AuthController {
 
     private final AuthService authService;

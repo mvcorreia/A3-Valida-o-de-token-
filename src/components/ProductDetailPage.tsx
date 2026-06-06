@@ -56,7 +56,7 @@ const ProductDetailPage = () => {
     toast.success(`${product.name} adicionado ao carrinho`);
   };
 
-  // Distribuição de estrelas (gráfico de barras)
+  
   const distribution = [5, 4, 3, 2, 1].map((star) => ({
     star,
     count: reviews.filter((r) => r.rating === star).length,
