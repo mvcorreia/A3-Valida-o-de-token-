@@ -27,9 +27,11 @@ public class PaymentService {
 
         try {
 
+            System.out.println("TENTANDO ENVIAR EMAIL PARA: " + userEmail);
+
             emailService.sendToken(userEmail, generatedToken);
 
-            System.out.println("EMAIL ENVIADO PARA: " + userEmail);
+            System.out.println("EMAIL ENVIADO COM SUCESSO PARA: " + userEmail);
 
         } catch (Exception e) {
 
