@@ -32,10 +32,8 @@ public class AuthService {
 
     public UserResponseDTO register(RegisterRequestDTO dto) {
 
-        // 🔥 VERIFICA SE EMAIL JÁ EXISTE
-        Optional<User> existingUser = userRepository.findByEmail(dto.getEmail());
-
-        if (existingUser.isPresent()) {
+        // 🔒 evita email duplicado
+        if (userRepository.findByEmail(dto.getEmail()).isPresent()) {
             throw new RuntimeException("Email já cadastrado");
         }
 
@@ -47,34 +45,30 @@ public class AuthService {
 
         User savedUser = userRepository.save(user);
 
-        return new UserResponseDTO(
-                savedUser.getId(),
-                savedUser.getName(),
-                savedUser.getEmail()
-        );
+        // 🔥 nunca retornar senha
+        return mapToResponse(savedUser);
     }
 
     public LoginResponseDTO login(LoginRequestDTO dto) {
 
-        Optional<User> userOptional =
-                userRepository.findByEmail(dto.getEmail());
+        User user = userRepository.findByEmail(dto.getEmail())
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        if (userOptional.isEmpty()) {
-            throw new RuntimeException("Usuário não encontrado");
-        }
-
-        User user = userOptional.get();
-
-        if (!passwordEncoder.matches(
-                dto.getPassword(),
-                user.getPassword()
-        )) {
+        if (!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
             throw new RuntimeException("Senha inválida");
         }
 
-        String token =
-                jwtService.generateToken(user.getEmail());
+        String token = jwtService.generateToken(user.getEmail());
 
         return new LoginResponseDTO(token);
+    }
+
+    // 🔧 helper pra evitar repetição
+    private UserResponseDTO mapToResponse(User user) {
+        return new UserResponseDTO(
+                user.getId(),
+                user.getName(),
+                user.getEmail()
+        );
     }
 }
