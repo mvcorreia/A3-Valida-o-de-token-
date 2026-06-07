@@ -10,51 +10,46 @@ public class PaymentService {
 
     private final EmailService emailService;
 
-    private String generatedToken;
+    
+    private String currentToken;
 
     public PaymentService(EmailService emailService) {
         this.emailService = emailService;
     }
 
-    public String processPayment(Double amount, String userEmail) {
-
-        Random random = new Random();
-        int token = 100000 + random.nextInt(900000);
-
-        generatedToken = String.valueOf(token);
-
-        System.out.println("TOKEN GERADO NO CONSOLE: " + generatedToken);
+    public String processPayment(Double amount, String email) {
 
         try {
+            
+            String token = generateToken();
 
-            System.out.println("TENTANDO ENVIAR EMAIL PARA: " + userEmail);
+            
+            this.currentToken = token;
 
-            emailService.sendToken(userEmail, generatedToken);
+            
+            emailService.sendToken(email, token);
 
-            System.out.println("EMAIL ENVIADO COM SUCESSO PARA: " + userEmail);
+            return "Pagamento processado! Token enviado para o email.";
 
         } catch (Exception e) {
-
-            System.out.println("ERRO AO ENVIAR EMAIL:");
             e.printStackTrace();
+            return "Erro ao enviar email";
         }
-
-        return "Pagamento processado! Token enviado para o email.";
     }
 
     public String validateToken(String token) {
 
-        if (generatedToken == null) {
-            return "Nenhum token gerado";
+        if (token.equals(currentToken)) {
+            return "Pagamento aprovado!";
         }
 
-        if (generatedToken.equals(token)) {
+        return "Token inválido!";
+    }
 
-            generatedToken = null;
-
-            return "Compra aprovada com sucesso";
-        }
-
-        return "Token inválido";
+    
+    private String generateToken() {
+        Random random = new Random();
+        int number = 100000 + random.nextInt(900000);
+        return String.valueOf(number);
     }
 }
