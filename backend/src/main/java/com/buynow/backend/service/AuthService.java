@@ -3,6 +3,7 @@ package com.buynow.backend.service;
 import com.buynow.backend.dto.LoginRequestDTO;
 import com.buynow.backend.dto.LoginResponseDTO;
 import com.buynow.backend.dto.RegisterRequestDTO;
+import com.buynow.backend.dto.UserResponseDTO;
 import com.buynow.backend.entity.User;
 import com.buynow.backend.repository.UserRepository;
 import com.buynow.backend.security.JwtService;
@@ -24,13 +25,19 @@ public class AuthService {
             JwtService jwtService,
             PasswordEncoder passwordEncoder
     ) {
-
         this.userRepository = userRepository;
         this.jwtService = jwtService;
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User register(RegisterRequestDTO dto) {
+    public UserResponseDTO register(RegisterRequestDTO dto) {
+
+        // 🔥 VERIFICA SE EMAIL JÁ EXISTE
+        Optional<User> existingUser = userRepository.findByEmail(dto.getEmail());
+
+        if (existingUser.isPresent()) {
+            throw new RuntimeException("Email já cadastrado");
+        }
 
         User user = new User(
                 dto.getName(),
@@ -38,7 +45,13 @@ public class AuthService {
                 passwordEncoder.encode(dto.getPassword())
         );
 
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+
+        return new UserResponseDTO(
+                savedUser.getId(),
+                savedUser.getName(),
+                savedUser.getEmail()
+        );
     }
 
     public LoginResponseDTO login(LoginRequestDTO dto) {
@@ -56,7 +69,6 @@ public class AuthService {
                 dto.getPassword(),
                 user.getPassword()
         )) {
-
             throw new RuntimeException("Senha inválida");
         }
 
