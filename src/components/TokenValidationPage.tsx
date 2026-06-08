@@ -130,7 +130,7 @@ const TokenValidationPage = () => {
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json", // ARRUMADO: Adicionado cabeçalho JSON para matar o erro 415
           },
           body: JSON.stringify({
             token,
