@@ -18,9 +18,10 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
+      // Ajustado para apontar para o novo servidor na Railway
       const endpoint = isRegister
-        ? "https://a3-valida-o-de-token.onrender.com/auth/register"
-        : "https://a3-valida-o-de-token.onrender.com/auth/login";
+        ? "https://a3-valida-o-de-token-production.up.railway.app/auth/register"
+        : "https://a3-valida-o-de-token-production.up.railway.app/auth/login";
 
       const requestBody = isRegister
         ? {
