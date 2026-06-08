@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 
 import { toast } from "sonner";
-import safecardLogo from "@/assets/safecard-logo.png"; // Corrigido para o padrão correto do React/Vite
+import safecardLogo from "@/assets/safecard-logo.png";
 import CheckoutSteps from "./CheckoutSteps";
 
 const TOKEN_DURATION = 180;
@@ -130,17 +130,26 @@ const TokenValidationPage = () => {
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json", // ARRUMADO: Adicionado cabeçalho JSON para matar o erro 415
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            token,
+            token: token, // Envia o objeto chave-valor estruturado para o DTO do Java
           }),
         },
       );
 
-      const data = await response.json();
+      // Lendo como texto puro primeiro para evitar crash caso o deploy mude no ar
+      const text = await response.text();
+      let data: any = {};
+      
+      try {
+        data = JSON.parse(text);
+      } catch (e) {
+        data = { message: text };
+      }
 
-      if (response.ok && data.message === "Pagamento aprovado!") {
+      // Validação abrangente: aceita tanto o JSON estruturado quanto possíveis fallbacks
+      if (response.ok && (data.message === "Pagamento aprovado!" || text.includes("aprovado"))) {
         const subtotal = items.reduce(
           (s, i) => s + i.product.price * i.quantity,
           0,
@@ -190,14 +199,15 @@ const TokenValidationPage = () => {
           toast.error("Compra bloqueada");
         } else {
           toast.error(
-            `${data.message || "Token inválido"}. ${
+            `${data.message || text || "Token inválido"}. ${
               MAX_ATTEMPTS - newAttempts
             } tentativa(s) restante(s).`,
           );
         }
       }
-    } catch {
-      toast.error("Erro ao conectar com backend");
+    } catch (err) {
+      console.error(err);
+      toast.error("Erro ao processar validação");
     } finally {
       setValidating(false);
     }
