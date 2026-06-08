@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 
 import { toast } from "sonner";
-import safecardLogo from "@/assets/safecard-logo.png";
+import safecardLogo from "@/assets/safecard-logo.png"; // Corrigido para o padrão correto do React/Vite
 import CheckoutSteps from "./CheckoutSteps";
 
 const TOKEN_DURATION = 180;
@@ -80,9 +80,7 @@ const TokenValidationPage = () => {
 
   const formatTime = (s: number) => {
     const m = Math.floor(s / 60);
-
     const r = s % 60;
-
     return `${m}:${r.toString().padStart(2, "0")}`;
   };
 
@@ -108,11 +106,8 @@ const TokenValidationPage = () => {
 
       if (response.ok) {
         setSecondsLeft(TOKEN_DURATION);
-
         setToken("");
-
         setAttempts(0);
-
         toast.success("Novo token enviado para seu email!");
       } else {
         toast.error("Erro ao reenviar token");
@@ -143,18 +138,16 @@ const TokenValidationPage = () => {
         },
       );
 
-      const data = await response.text();
+      const data = await response.json();
 
-      if (response.ok && data.includes("sucesso")) {
+      if (response.ok && data.message === "Pagamento aprovado!") {
         const subtotal = items.reduce(
           (s, i) => s + i.product.price * i.quantity,
           0,
         );
 
         const activeCoupon = buyingFromCart ? coupon : null;
-
         const discount = activeCoupon ? subtotal * activeCoupon.discount : 0;
-
         const total = subtotal - discount;
 
         const id = String(Math.floor(Math.random() * 900000 + 100000));
@@ -183,25 +176,21 @@ const TokenValidationPage = () => {
 
         if (buyingFromCart) {
           clearCart();
-
           setCoupon(null);
         }
 
         setConfirmed(true);
       } else {
         const newAttempts = attempts + 1;
-
         setAttempts(newAttempts);
-
         setToken("");
 
         if (newAttempts >= MAX_ATTEMPTS) {
           setBlocked(true);
-
           toast.error("Compra bloqueada");
         } else {
           toast.error(
-            `Token inválido. ${
+            `${data.message || "Token inválido"}. ${
               MAX_ATTEMPTS - newAttempts
             } tentativa(s) restante(s).`,
           );
@@ -249,7 +238,6 @@ const TokenValidationPage = () => {
             style={{ boxShadow: "var(--shadow-card)" }}
           >
             <p className="text-sm text-muted-foreground">Número do pedido</p>
-
             <p className="font-heading font-bold text-lg">#{orderId}</p>
           </div>
 
@@ -318,7 +306,6 @@ const TokenValidationPage = () => {
           </div>
 
           <h1 className="text-3xl font-heading text-white">Compra negada</h1>
-
           <p className="text-white/70 mt-3">O token informado é inválido.</p>
         </div>
       </div>
@@ -365,7 +352,6 @@ const TokenValidationPage = () => {
               }`}
             >
               <Clock className="w-3.5 h-3.5" />
-
               <span className="font-mono font-semibold">
                 {expired ? "Expirado" : `Expira em ${formatTime(secondsLeft)}`}
               </span>
@@ -373,7 +359,6 @@ const TokenValidationPage = () => {
 
             <div className="flex items-center gap-1.5 text-white/70">
               <span>Tentativas:</span>
-
               <span
                 className={`font-bold ${
                   attemptsLeft <= 1 ? "text-destructive" : "text-success"
@@ -396,30 +381,12 @@ const TokenValidationPage = () => {
               disabled={expired || validating}
             >
               <InputOTPGroup>
-                <InputOTPSlot
-                  index={0}
-                  className="border-white/20 text-white"
-                />
-                <InputOTPSlot
-                  index={1}
-                  className="border-white/20 text-white"
-                />
-                <InputOTPSlot
-                  index={2}
-                  className="border-white/20 text-white"
-                />
-                <InputOTPSlot
-                  index={3}
-                  className="border-white/20 text-white"
-                />
-                <InputOTPSlot
-                  index={4}
-                  className="border-white/20 text-white"
-                />
-                <InputOTPSlot
-                  index={5}
-                  className="border-white/20 text-white"
-                />
+                <InputOTPSlot index={0} className="border-white/20 text-white" />
+                <InputOTPSlot index={1} className="border-white/20 text-white" />
+                <InputOTPSlot index={2} className="border-white/20 text-white" />
+                <InputOTPSlot index={3} className="border-white/20 text-white" />
+                <InputOTPSlot index={4} className="border-white/20 text-white" />
+                <InputOTPSlot index={5} className="border-white/20 text-white" />
               </InputOTPGroup>
             </InputOTP>
           </div>
@@ -469,4 +436,5 @@ const TokenValidationPage = () => {
     </div>
   );
 };
+
 export default TokenValidationPage;
