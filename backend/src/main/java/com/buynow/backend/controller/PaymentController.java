@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/payment")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "https://a3-validador-frontend.onrender.com", allowedHeaders = "*")
 public class PaymentController {
 
     private final PaymentService paymentService;
@@ -33,7 +33,6 @@ public class PaymentController {
     public ResponseEntity<?> validateToken(@RequestBody TokenValidationDTO dto) {
         String result = paymentService.validateToken(dto.getToken());
 
-        // Criamos um mapa que o Spring converte automaticamente em JSON {"message": "..."}
         Map<String, String> response = new HashMap<>();
         response.put("message", result);
 
@@ -41,7 +40,6 @@ public class PaymentController {
             return ResponseEntity.ok(response); 
         }
 
-        
         return ResponseEntity.badRequest().body(response);
     }
 }

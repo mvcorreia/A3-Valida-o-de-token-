@@ -12,19 +12,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.POST, RequestMethod.GET, RequestMethod.OPTIONS})
+@CrossOrigin(origins = "https://a3-validador-frontend.onrender.com", allowedHeaders = "*")
 public class AuthController {
 
     private final AuthService authService;
 
     public AuthController(AuthService authService) {
         this.authService = authService;
-    }
-
-    // Método explícito para responder ao Preflight (OPTIONS) do navegador sem dar 405
-    @RequestMapping(value = "/**", method = RequestMethod.OPTIONS)
-    public ResponseEntity<?> handleOptions() {
-        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/register")
@@ -43,7 +37,6 @@ public class AuthController {
             LoginResponseDTO response = authService.login(dto);
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
-            // Retorna um JSON estruturado para o front-end não quebrar ao ler a resposta
             java.util.Map<String, String> errorMap = new java.util.HashMap<>();
             errorMap.put("message", e.getMessage());
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMap);
