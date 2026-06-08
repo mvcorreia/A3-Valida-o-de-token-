@@ -93,7 +93,8 @@ const TokenValidationPage = () => {
         0,
       );
 
-      const response = await fetch("https://a3-valida-o-de-token.onrender.com/payment/checkout", {
+      // Atualizado para a rota correspondente na Railway
+      const response = await fetch("https://a3-valida-o-de-token-production.up.railway.app/payment/checkout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -125,20 +126,20 @@ const TokenValidationPage = () => {
     setValidating(true);
 
     try {
+      // Atualizado para a rota correspondente na Railway
       const response = await fetch(
-        "https://a3-valida-o-de-token.onrender.com/payment/validate-token",
+        "https://a3-valida-o-de-token-production.up.railway.app/payment/validate-token",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            token: token, // Envia o objeto chave-valor estruturado para o DTO do Java
+            token: token, 
           }),
         },
       );
 
-      // Lendo como texto puro primeiro para evitar crash caso o deploy mude no ar
       const text = await response.text();
       let data: any = {};
       
@@ -148,7 +149,6 @@ const TokenValidationPage = () => {
         data = { message: text };
       }
 
-      // Validação abrangente: aceita tanto o JSON estruturado quanto possíveis fallbacks
       if (response.ok && (data.message === "Pagamento aprovado!" || text.includes("aprovado"))) {
         const subtotal = items.reduce(
           (s, i) => s + i.product.price * i.quantity,
