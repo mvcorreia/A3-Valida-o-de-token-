@@ -26,9 +26,8 @@ public class PaymentController {
         );
     }
 
-    @PostMapping("/validate-token")
+   @PostMapping("/validate-token")
     public String validateToken(@RequestBody TokenValidationDTO dto) {
-
         return paymentService.validateToken(dto.getToken());
     }
 }
