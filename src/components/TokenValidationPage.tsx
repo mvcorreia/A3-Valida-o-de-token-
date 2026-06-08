@@ -93,7 +93,8 @@ const TokenValidationPage = () => {
         0,
       );
 
-      const response = await fetch("https://a3-valida-o-de-token-production.up.railway.app/payment/checkout", {
+      // VOLTOU PARA O RENDER
+      const response = await fetch("https://a3-valida-o-de-token.onrender.com/payment/checkout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -125,9 +126,9 @@ const TokenValidationPage = () => {
     setValidating(true);
 
     try {
-      // Corrigido para bater com o PostMapping e o endpoint correto na Railway
+      // VOLTOU PARA O RENDER
       const response = await fetch(
-        "https://a3-valida-o-de-token-production.up.railway.app/payment/validate-token",
+        "https://a3-valida-o-de-token.onrender.com/payment/validate-token",
         {
           method: "POST",
           headers: {
@@ -148,7 +149,6 @@ const TokenValidationPage = () => {
         data = { message: text };
       }
 
-      // Validação baseada na resposta da mensagem do seu Map do Java
       if (response.ok && (data.message === "Pagamento aprovado!" || text.includes("aprovado"))) {
         const subtotal = items.reduce(
           (s, i) => s + i.product.price * i.quantity,
